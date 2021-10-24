@@ -7,7 +7,6 @@ import io
 from keras.models import load_model
 from flask_cors import CORS, cross_origin
 from flask import flash, request, redirect, url_for, session
-import os
 
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
