@@ -17,6 +17,11 @@ model = load_model('dogify_v1.h5')
 width = 128
 
 
+@app.route('/')
+def hello():
+    return "Dogify"
+
+
 def prepare_image(image, target):
     # if the image mode is not RGB, convert it
     if image.mode != "RGB":
