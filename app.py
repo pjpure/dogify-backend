@@ -18,7 +18,7 @@ width = 128
 
 @app.route('/')
 def hello():
-    return "Dogify"
+    return "Dogify v9"
 
 
 def prepare_image(image, target):
