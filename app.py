@@ -12,7 +12,7 @@ from flask import flash, request, redirect, url_for, session
 app = flask.Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-model = load_model('dogify_v3.h5')
+model = load_model('dogify_v5.h5')
 width = 128
 
 
