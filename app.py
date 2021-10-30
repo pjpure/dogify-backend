@@ -6,14 +6,14 @@ import flask
 import io
 from keras.models import load_model
 from flask_cors import CORS, cross_origin
-from flask import flash, request, redirect, url_for, session
+
 
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-model = load_model('dogify_v9_mo_85.h5')
-width = 128
+model = load_model('dogify_v13_in3_9533.h5')
+width = 299
 
 
 @app.route('/')
@@ -31,7 +31,7 @@ def prepare_image(image, target):
     image = np.array(image)
     image = image.astype('float32')
     image /= 255
-    image = np.reshape(image, (1, 128, 128, 3))
+    image = np.reshape(image, (1, width, width, 3))
 
     # return the processed image
     return image
@@ -45,7 +45,7 @@ def predict():
     # ensure an image was properly uploaded to our endpoint
     if flask.request.method == "POST":
         # read the image in PIL format
-        image = request.files["file"].read()
+        image = flask.request.files["file"].read()
         image = Image.open(io.BytesIO(image))
 
         image = prepare_image(image, target=(width, width))
