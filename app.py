@@ -12,7 +12,7 @@ from flask_cors import CORS, cross_origin
 app = flask.Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
-model = load_model('dogify_v13_in3_9533.h5')
+model = load_model('dogify_v15_in3_9549_10e.h5')
 width = 299
 
 
@@ -52,12 +52,15 @@ def predict():
 
         # preprocess the image and prepare it for classification
         predict = model.predict(image)
+        predict = predict[0].tolist()
         label = ['Golden Retriever', 'Labrador Retriever', 'Kuvasz']
         result = label[np.argmax(predict)]
         data["result"] = str(result)
-
-        # classify the input image and then initialize the list
-        # of predictions to return to the client
+        data["predictions"] = []
+        print(predict)
+        for i in range(len(label)):
+            r = {"label": label[i], "probability": ("%.2f" % predict[i])}
+            data["predictions"].append(r)
 
         # indicate that the request was a success
         data["success"] = True
