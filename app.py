@@ -59,7 +59,7 @@ def predict():
         data["predictions"] = []
         print(predict)
         for i in range(len(label)):
-            r = {"label": label[i], "probability": ("%.2f" % predict[i])}
+            r = {"label": label[i], "probability": round((predict[i])*100)}
             data["predictions"].append(r)
 
         # indicate that the request was a success
