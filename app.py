@@ -57,9 +57,29 @@ def predict():
         result = label[np.argmax(predict)]
         data["result"] = str(result)
         data["predictions"] = []
-        print(predict)
+        fPredict = []
+        newPredict = []
+        sum = 0
+        for p in predict:
+            p = p*100
+            ip = int(p)
+            sum += round(p)
+            newPredict.append(round(p))
+            fPredict.append(p-ip)
+        while(sum != 100):
+            if(sum < 100):
+                max_index = fPredict.index(max(fPredict))
+                newPredict[max_index] += 1
+                fPredict[max_index] = 0
+                sum += 1
+            else:
+                min_index = fPredict.index(min(fPredict))
+                newPredict[min_index] -= 1
+                fPredict[min_index] = 1
+                sum -= 1
         for i in range(len(label)):
-            r = {"label": label[i], "probability": round((predict[i])*100)}
+            r = {"label": label[i], "probability":
+                 newPredict[i]}
             data["predictions"].append(r)
 
         # indicate that the request was a success
